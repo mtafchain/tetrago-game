@@ -12,6 +12,7 @@ public class Plateau {
         plateau[1][1] = new Quartier(0, 0, 0, 0);
 
     }
+
     /**
      * 
      * @param a connaitre le placement d'un quartier du plateau selon la ligne
@@ -20,6 +21,28 @@ public class Plateau {
      */
     public Quartier getQuartier(int a, int b) {
         return plateau[a][b];
+    }
+
+    public int[] quartierCorrespondant(int a) {
+        int[] tableau = new int[2];
+        switch (a) {
+            case 1:
+                tableau[0] = 0;
+                tableau[1] = 0;
+                return tableau;
+
+            case 2:
+                tableau[0] = 0;
+                tableau[1] = 1;
+                return tableau;
+            case 3:
+                tableau[0] = 1;
+                tableau[1] = 0;
+                return tableau;
+        }
+        tableau[0] = 1;
+        tableau[1] = 1;
+        return tableau;
     }
 
     /**
@@ -39,7 +62,7 @@ public class Plateau {
             Quartier quartierDemande = plateau[plateauX][plateauY];
             return quartierDemande.getCase(quartierX, quartierY);
         }
-        throw new IllegalArgumentException("Ceci est un nombre non compris dans le plateau");
+        return -1;
     }
 
     /**
@@ -63,11 +86,12 @@ public class Plateau {
 
                     Quartier quartierDemande = plateau[plateauX][plateauY];
                     quartierDemande.setCase(quartierX, quartierY, pion);
+                } else {
+                    return false;
                 }
             }
-            return true;
         }
-        throw new IllegalArgumentException("Vous ne pouvez pas donner un pion inexistant");
+        return true;
     }
 
     /**
@@ -82,7 +106,8 @@ public class Plateau {
             plateau[a][b].rotation();
         }
     }
-     /**
+
+    /**
      * 
      * @return vérifie si une partie est gagnee.
      *         Une partie est gagnee si quatre billes sont alignees de maniere
@@ -115,12 +140,20 @@ public class Plateau {
         }
         return false;
     }
+
+    /**
+     * 
+     * @return vrai si tous les quartiers sont complets
+     */
+
     public boolean partieNulle() {
-        if (plateau[0][0].quartierComplet() == true && plateau[0][1].quartierComplet() == true && plateau[1][0].quartierComplet() == true && plateau[1][1].quartierComplet() == true) {
+        if (plateau[0][0].quartierComplet() == true && plateau[0][1].quartierComplet() == true
+                && plateau[1][0].quartierComplet() == true && plateau[1][1].quartierComplet() == true) {
             return true;
         }
         return false;
     }
+
     /**
      * affichage du plateau
      */
@@ -158,5 +191,5 @@ public class Plateau {
         return "";
 
     }
-    
+
 }

@@ -11,10 +11,17 @@ public class Jeu {
         plateau = new Plateau();
     }
 
+    /**
+     * 
+     * @return le plateau de jeu
+     */
     public Plateau getPlateau() {
         return plateau;
     }
 
+    /**
+     * rappelle les regles du jeu
+     */
     public void reglesJeu() {
         System.out.println("Bienvenue dans le jeu de Tetrago");
         System.out.print("Voici les règles du jeu : à chaque tour,");
@@ -28,6 +35,9 @@ public class Jeu {
         System.out.println();
     }
 
+    /**
+     * demande les noms des deux joueurs et presente le plateau
+     */
     public void bienvenue() {
         System.out.print("Donnez le nom du premier joueur qui aura comme chiffre 1 : ");
         Scanner scanner = new Scanner(System.in);
@@ -39,45 +49,111 @@ public class Jeu {
         System.out.println("Bienvenue " + joueur1 + " et " + joueur2 + " ! ");
         System.out.println();
         System.out.println("Voici le plateau ! ");
-
     }
 
+    /**
+     * tire au sort
+     * 
+     * @return le joueur qui va debuter
+     */
     public String tirageAuSort() {
         System.out.println("Nous allons faire le tirage au sort pour savoir qui commence...");
         double random = Math.random();
         if (random >= 0 && random < 0.5) {
-            return "Le joueur qui commence est : " + joueur1;
+            System.out.println("Le joueur qui commence est " + joueur1);
+            return joueur1;
         }
-        return "Le joueur qui commence est " + joueur2;
+        System.out.println("Le joueur qui commence est " + joueur2);
+        return joueur2;
     }
 
-    public static void tourJoueur1() {
-        
+    /**
+     * permet au joueur un de poser une de ses billes dans une case inoccupee du
+     * plateau et de tourner
+     * un des quartiers secondaires
+     * 
+     * @return le plateau modifie
+     */
+    public Plateau tourJoueur1() {
+        System.out.println("Tour : " + joueur1);
+        System.out.println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
+        Scanner scanner = new Scanner(System.in);
+        int x = scanner.nextInt();
+        System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
+        int y = scanner.nextInt();
+        plateau.setCase(x, y, 2);
+        /*while (plateau.setCase(x, y, 2) == false) {
+            System.out.println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
+            x = scanner.nextInt();
+            System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
+            y = scanner.nextInt();
+        }*/
+
+        System.out.println("Indiquez le quartier que vous voulez tourner : ");
+        Scanner scanner2 = new Scanner(System.in);
+        int a = scanner2.nextInt();
+
+        int[] tableau = plateau.quartierCorrespondant(a);
+
+        plateau.rotationQuartier(tableau[0], tableau[1]);
+        return plateau;
     }
 
-    public static void tourJoueur2() {
+    /**
+     * permet au joueur deux de poser une de ses billes dans une case inoccupee du
+     * plateau et de tourner
+     * un des quartiers secondaires
+     * 
+     * @return le plateau modifie
+     */
+    public Plateau tourJoueur2() {
+        System.out.println("Tour : " + joueur2);
+        System.out.println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
+        Scanner scanner = new Scanner(System.in);
+        int x = scanner.nextInt();
+        System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
+        int y = scanner.nextInt();
+        plateau.setCase(x, y, 1);
+       /*  while (plateau.setCase(x, y, 1) == false) {
+            System.out.println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
+            x = scanner.nextInt();
+            System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
+            y = scanner.nextInt();
+        }*/
 
+        System.out.println("Indiquez le quartier que vous voulez tourner : ");
+        Scanner scanner2 = new Scanner(System.in);
+        int a = scanner2.nextInt();
+
+        int[] tableau = plateau.quartierCorrespondant(a);
+
+        plateau.rotationQuartier(tableau[0], tableau[1]);
+        return plateau;
     }
 
-    public void tourJeu() {
+    /**
+     * permet d'executer les differents tour de jeu selon le joueur qui a debuter
+     */
+    public boolean tourJeu() {
         if (tirageAuSort() == joueur1) {
             while (plateau.partieNulle() == false || plateau.partieGagne() == false) {
-                tourJoueur1();
-                tourJoueur2();
+                System.out.println(tourJoueur1());
+                System.out.println(tourJoueur2());
             }
-        }
-        else {
+            if (plateau.partieGagne()) {
+                return plateau.partieGagne();
+            } else {
+                return plateau.partieNulle();
+            }
+        } else {
             while (plateau.partieNulle() == false || plateau.partieGagne() == false) {
-                tourJoueur2();
-                tourJoueur1();
+                System.out.println(tourJoueur2());
+                System.out.println(tourJoueur1());
             }
+            if (plateau.partieGagne()) {
+                return plateau.partieGagne();
+            }
+            return plateau.partieNulle();
         }
-    }
-
-    public static void main(String[] args) {
-        Jeu jeu = new Jeu();
-        jeu.reglesJeu();
-        jeu.bienvenue();
-        System.out.println(jeu.getPlateau());
     }
 }
