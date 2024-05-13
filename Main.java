@@ -6,9 +6,9 @@ public class Main {
         jeu.reglesJeu();
         jeu.bienvenue();
         System.out.println();
-        System.out.println(jeu.getPlateau());
+        jeu.getPlateau();
         System.out.println();
-        System.out.println(jeu.tourJeu());
+        jeu.tourJeu();
 
     }
 }
