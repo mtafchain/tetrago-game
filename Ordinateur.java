@@ -5,6 +5,7 @@ import java.util.Random;
 /*
  * On souhaite pouvoir jouer contre un ordinateur
  * On demande à l'utilisateur si il veut jouer contre l'ordinateur
+ * Pour cela, il faudrait faire une interface JoueurInterface contenant la méthode jouer() et getNom()
  * L'ordinateur appliquera l'algorithme de Minimax 
  * Le but étant que l'ordinateur joue sur n'importe quelle case inoccupée du plateau
  * L'ordinateur ne sera pas très intelligent mais appliquera les règles du jeu
