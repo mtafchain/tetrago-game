@@ -10,9 +10,11 @@ public class Jeu {
     public Jeu() {
         plateau = new Plateau();
     }
+
     public Plateau getPlateau() {
         return plateau;
     }
+
     /**
      * rappelle les regles du jeu
      */
@@ -46,7 +48,6 @@ public class Jeu {
     }
 
     /**
-     * tire au sort
      * 
      * @return le joueur qui va debuter
      */
@@ -76,17 +77,6 @@ public class Jeu {
         System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
         int y = scanner.nextInt();
         plateau.setCase(x, y, 1);
-        /*
-         * while (plateau.setCase(x, y, 2) == false) {
-         * System.out.
-         * println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
-         * x = scanner.nextInt();
-         * System.out.
-         * println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
-         * y = scanner.nextInt();
-         * }
-         */
-
         System.out.println("Indiquez le quartier que vous voulez tourner : ");
         Scanner scanner2 = new Scanner(System.in);
         int a = scanner2.nextInt();
@@ -114,17 +104,6 @@ public class Jeu {
         System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
         int y = scanner.nextInt();
         plateau.setCase(x, y, 2);
-        /*
-         * while (plateau.setCase(x, y, 1) == false) {
-         * System.out.
-         * println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
-         * x = scanner.nextInt();
-         * System.out.
-         * println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
-         * y = scanner.nextInt();
-         * }
-         */
-
         System.out.println("Indiquez le quartier que vous voulez tourner : ");
         Scanner scanner2 = new Scanner(System.in);
         int a = scanner2.nextInt();
@@ -136,12 +115,17 @@ public class Jeu {
         return plateau;
     }
 
+    /**
+     * 
+     * @return vrai si la partie est soit gagnante pour un joueur ou nulle
+     */
     public boolean verificationPartie() {
         return plateau.partieGagne() == true || plateau.partieNulle() == true;
     }
 
     /**
      * permet d'executer les differents tour de jeu selon le joueur qui a debuter
+     * et de verifier a chaque tour si la partie est gagnee ou nulle
      */
     public void tourJeu() {
         if (tirageAuSort() == joueur1) {

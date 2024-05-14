@@ -46,6 +46,9 @@ public class Plateau {
     }
 
     /**
+     * on divise x et y par 2 pour connaitre le quartier souhaite
+     * on souhaite obtenir le reste de la division de x et y par 2 pour connaitre la
+     * valeur a retourner
      * 
      * @param x connaître l'emplacement d'une donnee selon la ligne
      * @param y connaître l'emplacement d'une donnee selon la colonne
@@ -158,6 +161,7 @@ public class Plateau {
     /**
      * affichage du plateau
      */
+    @Override
     public String toString() {
 
         plateau[0][0].ligneQuartier(0);// faire une boucle
@@ -178,16 +182,6 @@ public class Plateau {
         plateau[1][1].ligneQuartier(1);
 
         System.out.println();
-
-        /*
-         * for (int i = 0; i < plateau.length; i++) {
-         * for (int j = 0; j < plateau[i].length; j++) {
-         * plateau[i][j].ligneQuartier(i);
-         * System.out.println();
-         * }
-         * }
-         */
-        // à changer !
 
         return "";
 
