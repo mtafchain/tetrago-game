@@ -10,15 +10,9 @@ public class Jeu {
     public Jeu() {
         plateau = new Plateau();
     }
-
-    /**
-     * 
-     * @return le plateau de jeu
-     */
-    public void getPlateau() {
-        System.out.println(plateau);
+    public Plateau getPlateau() {
+        return plateau;
     }
-
     /**
      * rappelle les regles du jeu
      */
@@ -74,7 +68,7 @@ public class Jeu {
      * 
      * @return le plateau modifie
      */
-    public boolean tourJoueur1() {
+    public Plateau tourJoueur1() {
         System.out.println("Tour : " + joueur1);
         System.out.println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
         Scanner scanner = new Scanner(System.in);
@@ -82,12 +76,16 @@ public class Jeu {
         System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
         int y = scanner.nextInt();
         plateau.setCase(x, y, 1);
-        /*while (plateau.setCase(x, y, 2) == false) {
-            System.out.println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
-            x = scanner.nextInt();
-            System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
-            y = scanner.nextInt();
-        }*/
+        /*
+         * while (plateau.setCase(x, y, 2) == false) {
+         * System.out.
+         * println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
+         * x = scanner.nextInt();
+         * System.out.
+         * println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
+         * y = scanner.nextInt();
+         * }
+         */
 
         System.out.println("Indiquez le quartier que vous voulez tourner : ");
         Scanner scanner2 = new Scanner(System.in);
@@ -97,14 +95,8 @@ public class Jeu {
         int[] tableau = plateau.quartierCorrespondant(a);
 
         plateau.rotationQuartier(tableau[0], tableau[1]);
-        if (plateau.partieGagne() == true) {
-            System.out.println(plateau);
-        }
-        else if (plateau.partieNulle() == true){
-            System.out.println(plateau);
-        }
-        getPlateau();
-        return true;
+
+        return plateau;
     }
 
     /**
@@ -114,7 +106,7 @@ public class Jeu {
      * 
      * @return le plateau modifie
      */
-    public boolean tourJoueur2() {
+    public Plateau tourJoueur2() {
         System.out.println("Tour : " + joueur2);
         System.out.println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
         Scanner scanner = new Scanner(System.in);
@@ -122,12 +114,16 @@ public class Jeu {
         System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
         int y = scanner.nextInt();
         plateau.setCase(x, y, 2);
-       /*  while (plateau.setCase(x, y, 1) == false) {
-            System.out.println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
-            x = scanner.nextInt();
-            System.out.println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
-            y = scanner.nextInt();
-        }*/
+        /*
+         * while (plateau.setCase(x, y, 1) == false) {
+         * System.out.
+         * println("Sur quelle ligne du plateau voulez-vous poser votre pion ? : ");
+         * x = scanner.nextInt();
+         * System.out.
+         * println("Sur quelle colonne du plateau voulez-vous poser votre pion ? : ");
+         * y = scanner.nextInt();
+         * }
+         */
 
         System.out.println("Indiquez le quartier que vous voulez tourner : ");
         Scanner scanner2 = new Scanner(System.in);
@@ -136,14 +132,12 @@ public class Jeu {
         int[] tableau = plateau.quartierCorrespondant(a);
 
         plateau.rotationQuartier(tableau[0], tableau[1]);
-        if (plateau.partieGagne() == true) {
-            System.out.println(plateau);
-        }
-        else if (plateau.partieNulle() == true){
-            System.out.println(plateau);
-        }
-        getPlateau();
-        return true;
+
+        return plateau;
+    }
+
+    public boolean verificationPartie() {
+        return plateau.partieGagne() == true || plateau.partieNulle() == true;
     }
 
     /**
@@ -151,14 +145,38 @@ public class Jeu {
      */
     public void tourJeu() {
         if (tirageAuSort() == joueur1) {
-            while (tourJoueur1() == true && tourJoueur2() == true) {
+            while (verificationPartie() == false) {
                 System.out.println(tourJoueur1());
+                if (plateau.partieGagne()) {
+                    break;
+                }
+                if (plateau.partieNulle()) {
+                    break;
+                }
                 System.out.println(tourJoueur2());
+                if (plateau.partieGagne()) {
+                    break;
+                }
+                if (plateau.partieNulle()) {
+                    break;
+                }
             }
         } else {
-            while (tourJoueur1() == true && tourJoueur2() == true) {
+            while (verificationPartie() == false) {
                 System.out.println(tourJoueur2());
+                if (plateau.partieGagne()) {
+                    break;
+                }
+                if (plateau.partieNulle()) {
+                    break;
+                }
                 System.out.println(tourJoueur1());
+                if (plateau.partieGagne()) {
+                    break;
+                }
+                if (plateau.partieNulle()) {
+                    break;
+                }
             }
         }
     }

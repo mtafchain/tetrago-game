@@ -6,7 +6,7 @@ public class Main {
         jeu.reglesJeu();
         jeu.bienvenue();
         System.out.println();
-        jeu.getPlateau();
+        System.out.println(jeu.getPlateau());
         System.out.println();
         jeu.tourJeu();
 

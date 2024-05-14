@@ -149,6 +149,7 @@ public class Plateau {
     public boolean partieNulle() {
         if (plateau[0][0].quartierComplet() == true && plateau[0][1].quartierComplet() == true
                 && plateau[1][0].quartierComplet() == true && plateau[1][1].quartierComplet() == true) {
+            System.out.println("La partie est nulle !");
             return true;
         }
         return false;
